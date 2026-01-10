@@ -22,11 +22,17 @@ public class ChapterController {
 
     private final ChapterService chapterService;
 
-    @GetMapping("/{book_id}")
-    @Operation(summary = "챕터 조회", description = "bookID를 기반으로 책을 찾은 후, 생성일 created_at 과 실 내용 content를 리스트로 반환합니다.")
-    public ApiResponse<List<ChapterRespDTO.GetChapterDTO>> getChapter (@PathVariable("book_id") Long bookId){
+    @GetMapping("/{book_id}/list")
+    @Operation(summary = "챕터 리스트 조회", description = "bookID를 기반으로 책을 찾은 후, 생성일 created_at 과 실 내용 content를 리스트로 반환합니다.")
+    public ApiResponse<List<ChapterRespDTO.GetChapterDTO>> getChapterList(@PathVariable("book_id") Long bookId){
         return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChaterList(bookId));
     }
+
+     @GetMapping("/{chapter_id}")
+     @Operation(summary = "챕터 단일 조회", description = " 생성일 created_at 과 실 내용 content, AI 한미디 comment를 반환합니다.")
+     public ApiResponse<ChapterRespDTO.GetChapterInfoDTO> getChapter (@PathVariable ("chapter_id") Long chapterId){
+        return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChapter(chapterId));
+     }
 
     @PostMapping
     @Operation(summary = "챕터 생성", description = "bookID를 기반으로 책을 찾은 후, title과 content로 챕터를 만든 후 저장합니다. 동시에 ChatGPT 연결로 해당 챕터에 대한 일일 코멘트를 연결합니다.")
