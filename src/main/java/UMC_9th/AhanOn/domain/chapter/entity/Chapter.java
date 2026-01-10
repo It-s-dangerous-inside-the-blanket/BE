@@ -6,6 +6,7 @@ import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -15,6 +16,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(
+        name = "chapter",
+        indexes = {
+                @Index(name = "ix_chapter_book", columnList = "book")
+        }
+)
 public class Chapter extends BaseEntity {
 
     @Id
