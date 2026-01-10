@@ -37,4 +37,9 @@ public class Book extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @Builder.Default
     List<Hashtag> hashtags = new ArrayList<>();
+
+    public void addHashtag(Hashtag hashtag) {
+        this.hashtags.add(hashtag);
+        hashtag.setBook(this);
+    }
 }

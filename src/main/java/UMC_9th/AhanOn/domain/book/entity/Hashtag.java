@@ -1,10 +1,7 @@
 package UMC_9th.AhanOn.domain.book.entity;
 
 import UMC_9th.AhanOn.global.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -20,4 +17,12 @@ public class Hashtag extends BaseEntity {
     private Long id;
 
     private String hashtag;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional=false)
+    @JoinColumn(name = "book_id", nullable=false)
+    private Book book;
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 }
