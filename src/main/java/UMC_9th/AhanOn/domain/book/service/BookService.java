@@ -38,9 +38,14 @@ public class BookService {
         User user = userRepository.findById(userId).orElseThrow(() -> new GeneralException(GeneralErrorCode.BAD_REQUEST));
         user.addBook(savedBook);
 
-        for (String hashtag : request.getHashtags()) {
-            Hashtag ht = hashtagService.createHashtag(savedBook, hashtag);
-            book.addHashtag(ht);
+        List<String> tags = request.getHashtags();
+
+        //해시태그가 있는 경우에만 실행
+        if (tags != null && !tags.isEmpty()) {
+            for (String hashtag : tags) {
+                Hashtag ht = hashtagService.createHashtag(savedBook, hashtag);
+                book.addHashtag(ht);
+            }
         }
 
         return BookConverter.toResponse(book);

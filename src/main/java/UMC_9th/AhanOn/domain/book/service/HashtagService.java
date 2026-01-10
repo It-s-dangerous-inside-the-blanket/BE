@@ -7,7 +7,6 @@ import UMC_9th.AhanOn.domain.book.entity.dto.HashtagDto;
 import UMC_9th.AhanOn.domain.book.exception.HashtagException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
 import UMC_9th.AhanOn.domain.book.repository.HashtagRepository;
-import UMC_9th.AhanOn.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +35,13 @@ public class HashtagService {
     @Transactional
     public Hashtag createHashtag(Book book, String hashtag) {
 
-        nomerization(hashtag);
+        String normalizationTag = normalization(hashtag);
 
-        boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), hashtag);
-        if (existsByBookIdAndHashtag) return hashtagRepository.findByBookIdAndHashtag(book.getId(), hashtag).get();
+        boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), normalizationTag);
+        if (existsByBookIdAndHashtag) return hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
 
         return Hashtag.builder()
-                .hashtag(hashtag)
+                .hashtag(normalizationTag)
                 .book(book)
                 .build();
     }
@@ -68,9 +67,17 @@ public class HashtagService {
         return hashtagRepository.findAllByBookId(book.getId());
     }
 
-    private void nomerization(String str) {
-        if (str == null || str.isBlank()) {
+    private String normalization(String str) {
+        if (str == null) {
+            throw new HashtagException(HashErrorCode.BAD_REQUEST_HASHTAG_NULL);
+        }
+
+        String normalized = str.trim();
+
+        if (normalized.isEmpty()) {
             throw new HashtagException(HashErrorCode.BAD_REQUEST_HASHTAG_EMPTY);
         }
+
+        return normalized;
     }
 }
