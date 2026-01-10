@@ -28,6 +28,7 @@ public class User extends BaseEntity {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @Builder.Default
     private List<Book> bookList = new ArrayList<>();
 
     public void addBook(Book book) {

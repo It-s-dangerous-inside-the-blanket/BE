@@ -5,6 +5,9 @@ import UMC_9th.AhanOn.domain.user.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @NoArgsConstructor
@@ -30,4 +33,7 @@ public class Book extends BaseEntity {
     @Setter
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+    @Builder.Default
+    List<Hashtag> hashtags = new ArrayList<>();
 }
