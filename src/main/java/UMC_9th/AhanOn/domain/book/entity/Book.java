@@ -29,11 +29,11 @@ public class Book extends BaseEntity {
     private String commentAfterFin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "user_id")
     @Setter
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+    @OneToMany(cascade = CascadeType.ALL)
     @Builder.Default
     List<Hashtag> hashtags = new ArrayList<>();
 }
