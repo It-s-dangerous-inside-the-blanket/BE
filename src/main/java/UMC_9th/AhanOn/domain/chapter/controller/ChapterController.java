@@ -23,13 +23,13 @@ public class ChapterController {
 
 
     ///  이 밑에 다 안씀!
-    @DeleteMapping("/{chapter_id}")
+//    @DeleteMapping("/{chapter_id}")
     public ApiResponse<Boolean> deleteChapter(@PathVariable("chapter_id") Long chapterId){
         // hardDelete
         return ApiResponse.onSuccess(ChapterSuccessCode.DELETE_CHAPTER_SUCCESS, chapterService.deleteChapter(chapterId));
     }
 
-    @PatchMapping
+//    @PatchMapping
     public ApiResponse<Boolean> updateChapter(@RequestBody ChapterReqDTO.UpdateChapterDTO dto){
         return ApiResponse.onSuccess(ChapterSuccessCode.DELETE_CHAPTER_SUCCESS, chapterService.updateChapter(dto));
     }

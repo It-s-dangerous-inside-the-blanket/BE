@@ -127,7 +127,6 @@ public class ChapterService {
 
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
 
-
         List<Chapter> allByBookId = chapterRepository.findAllByBook_Id(bookId);
 
         String chapterSummary;
@@ -157,7 +156,6 @@ public class ChapterService {
                 .bodyToMono(ChatResponse.class)
                 .block();
 
-        log.info("CHATGPT response! -> {}", response.getChoices().get(0).getMessage().getContent());
         String comment = response.getChoices().get(0).getMessage().getContent();
         if (comment == null) {
             throw new ChapterException(ChapterErrorCode.CHATHGPT_ERROR);
