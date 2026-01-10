@@ -1,7 +1,9 @@
 package UMC_9th.AhanOn.domain.book.entity.dto;
 
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookDto {
@@ -40,5 +42,15 @@ public class BookDto {
         private boolean isEnd;
         private boolean existComment;
         private List<String> hashtags;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    public static class ResponseSummary {
+        private String title;
+        private String bookSummary;
+        private LocalDateTime createdAt;
     }
 }
