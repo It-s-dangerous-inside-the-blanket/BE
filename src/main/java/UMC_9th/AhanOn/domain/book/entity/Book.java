@@ -28,8 +28,8 @@ public class Book extends BaseEntity {
 
     private String commentAfterFin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional=false)
+    @JoinColumn(name = "user_id", nullable=false)
     @Setter
     private User user;
 
