@@ -19,13 +19,14 @@ import java.util.List;
 @Table(
         name = "chapter",
         indexes = {
-                @Index(name = "ix_chapter_book", columnList = "book")
+                @Index(name = "ix_chapter_book", columnList = "book_id")
         }
 )
 public class Chapter extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chapter_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
