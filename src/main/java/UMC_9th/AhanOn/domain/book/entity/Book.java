@@ -31,6 +31,10 @@ public class Book extends BaseEntity {
     @NotBlank
     private String title;
 
+
+    @Column(columnDefinition = "TEXT")
+    private String introduction;
+
     private String bookSummary;
 
     @Builder.Default
@@ -66,7 +70,8 @@ public class Book extends BaseEntity {
         if (isEnd != null) this.isEnd = isEnd;
     }
 
-    public void summaryBook (String summary){
+    public void summaryBook (String summary, String introduction){
         this.bookSummary = summary;
+        this.introduction = introduction;
     }
 }

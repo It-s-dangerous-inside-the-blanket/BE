@@ -170,7 +170,7 @@ public class ChapterService {
 
         ChatRequest request = new ChatRequest(
                 "gpt-4.1-mini",
-                List.of(new ChatRequest.Message("user", "지금 사용자는 하루 불안하고 복잡한 현 상황과 미래를 기록한 일기를 마무리했다. 이를 분석하면서 사용자에게 위로되는 조언들을 섞을 것 -> " + chapterSummary)),
+                List.of(new ChatRequest.Message("user", "사용자는 계속해서 불안하고 복잡한 현 상황과 미래를 기록한 일기를 마무리했다. 이를 분석하면서 사용자에게 위로되는 조언들을 섞을 것 -> " + chapterSummary)),
                 0.2
         );
 
@@ -183,13 +183,37 @@ public class ChapterService {
                 .bodyToMono(ChatResponse.class)
                 .block();
 
+
+        ChatRequest request2 = new ChatRequest(
+                "gpt-4.1-mini",
+                List.of(new ChatRequest.Message("user", "사용자는 계속해서 불안하고 복잡한 현 상황과 미래를 지속적으로 기록한 일기를 마무리했다. 이를 분석하면서 자서전 처럼 작가의 말, 서론 느낌 처럼 책을 정리하면서 친근한 리뷰를 남길 것 -> " + chapterSummary)),
+                0.2
+        );
+
+        ChatResponse response2 = webClient.post()
+                .uri("https://api.openai.com/v1/chat/completions")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + openApiKey)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(request2)
+                .retrieve()
+                .bodyToMono(ChatResponse.class)
+                .block();
+
         String comment = response.getChoices().get(0).getMessage().getContent();
+        String comment2 = response2.getChoices().get(0).getMessage().getContent();
         if (comment == null) {
+            log.info("comment1 error!");
+            throw new ChapterException(ChapterErrorCode.CHATHGPT_ERROR);
+        }
+        if (comment2 == null) {
+            log.info("comment2 error!");
             throw new ChapterException(ChapterErrorCode.CHATHGPT_ERROR);
         }
 
-        log.info("ChatGPT response! -> {}", response);
+        log.info("ChatGPT response! -> {}", comment);
+        log.info("ChatGPT response! -> {}", comment2);
 
-        book.summaryBook(comment);
+        book.summaryBook(comment, comment2);
+
     }
 }
