@@ -45,4 +45,13 @@ public class UserController {
         UserResponseDTO.NicknameCheckResponse response = userService.checkNickname(nickname);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, response);
     }
+
+    @Operation(summary = "마이페이지", description = "마이페이지 조회 API로, 오늘 날짜, 가입 경과일, 작성 챕터 개수, 작성 책 개수 다음 레벨 까지 남은 책 수를 리턴합니다.")
+    @GetMapping("/mypage")
+    public ApiResponse<UserResponseDTO.MyPageDTO> mypage(
+            @RequestParam String nickname
+    ) {
+
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, userService.getMyPage(nickname));
+    }
 }
