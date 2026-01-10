@@ -47,6 +47,16 @@ public class BookDto {
     @AllArgsConstructor
     @Builder
     @NoArgsConstructor
+    public static class ResponseSummary {
+        private String title;
+        private String bookSummary;
+        private LocalDateTime createdAt;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
     public static class detailResponse {
         private Long bookId;
         private String title;
