@@ -22,7 +22,6 @@ public class DailyComment extends BaseEntity {
     @Setter
     private Chapter chapter;
 
-    @Lob
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment", nullable = false, columnDefinition = "TEXT")
     private String comment;
 }

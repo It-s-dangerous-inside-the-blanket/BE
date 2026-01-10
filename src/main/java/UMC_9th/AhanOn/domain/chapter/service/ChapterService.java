@@ -1,6 +1,8 @@
 package UMC_9th.AhanOn.domain.chapter.service;
 
+import UMC_9th.AhanOn.domain.book.code.BookErrorCode;
 import UMC_9th.AhanOn.domain.book.entity.Book;
+import UMC_9th.AhanOn.domain.book.exception.BookException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
 import UMC_9th.AhanOn.domain.chapter.code.ChapterErrorCode;
 import UMC_9th.AhanOn.domain.chapter.dto.ChapterReqDTO;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,10 +80,12 @@ public class ChapterService {
 
     public Long createChapter(ChapterReqDTO.CreateChapterDTO dto) {
 
+        Book book = bookRepository.findById(dto.getBookId()).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
+
         // AI 연결이 필요
         ChatRequest request = new ChatRequest(
                 "gpt-4.1-mini",
-                List.of(new ChatRequest.Message("user", "지금 사용자는 하루 불안하고 복잡한 현 상황과 미래를 일기로 기록하는 중. 다음 주는 읽기를 보고 분석한 다음, 사용자에게 위로 되는 문장을 던질 것 -> " + dto.getContent())),
+                List.of(new ChatRequest.Message("user", "지금 사용자는 하루 불안하고 복잡한 현 상황과 미래를 일기로 기록하는 중. 다음 주는 읽기를 보고 분석한 다음, 사용자에게 위로 되는 문장만 던질 것 -> " + dto.getContent())),
                 0.2
         );
 
@@ -93,19 +98,18 @@ public class ChapterService {
                 .bodyToMono(ChatResponse.class)
                 .block();
 
-        log.info("CHATGPT response! -> {}", response.getChoices().get(0).getMessage().getContent());
         String comment = response.getChoices().get(0).getMessage().getContent();
         if (comment == null) {
             throw new ChapterException(ChapterErrorCode.CHATHGPT_ERROR);
         }
 
-        log.info("ChatGPT response! -> {}", response);
+        log.info("ChatGPT response! -> {}", comment);
 
         Chapter chapter = Chapter.builder()
-                .book(new Book())
+                .book(book)
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .comments(null)
+                .comments(new ArrayList<>())
                 .build();
 
         Chapter savedChapter = chapterRepository.save(chapter);
