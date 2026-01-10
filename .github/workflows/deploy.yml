@@ -53,6 +53,7 @@ jobs:
             
             sudo docker-compose down || true
 
+            echo "DOCKER_USERNAME=${{secrets.DOCKER_USERNAME}}" > .env
             echo "DB_HOST=mysql-db" > .env 
             echo "DB_NAME=${{secrets.DB_NAME}}" >> .env
             echo "DB_USERNAME=${{secrets.DB_USERNAME}}" >> .env
@@ -61,6 +62,5 @@ jobs:
             
             sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
             
-            sudo docker-compose pull spring-app
-            sudo docker-compose up -d --force-recreate --no-deps spring-app
-            sudo docker image prune -a -f
+            sudo docker-compose pull
+            sudo docker-compose up -d
