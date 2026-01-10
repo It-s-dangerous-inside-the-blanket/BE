@@ -23,7 +23,7 @@ public class ChapterController {
     private final ChapterService chapterService;
 
     @GetMapping("/{book_id}")
-    @Operation(summary = "챕터 조회", description = "bookID를 기반으로 책을 찾은 후, 생성일 created_at 과 실 내용 content를 리스트로 반환합니다.")
+    @Operation(summary = "챕터 리스트 조회", description = "bookID를 기반으로 책을 찾은 후, 생성일 created_at 과 실 내용 content를 리스트로 반환합니다.")
     public ApiResponse<List<ChapterRespDTO.GetChapterDTO>> getChapter (@PathVariable("book_id") Long bookId){
         return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChaterList(bookId));
     }

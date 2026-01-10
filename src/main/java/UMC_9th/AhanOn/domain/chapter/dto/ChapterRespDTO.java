@@ -22,6 +22,7 @@ public class ChapterRespDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class GetChapterDTO {
+        private Long id;
         private LocalDateTime createdAt;
         private String content;
     }

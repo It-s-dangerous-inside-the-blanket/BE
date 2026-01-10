@@ -74,7 +74,9 @@ public class ChapterService {
 
         return book.getChapterList().stream()
                 .map(chapter -> ChapterRespDTO.GetChapterDTO.builder()
-                        .createdAt(chapter.getCreatedAt()).content(chapter.getContent()).build())
+                        .id(chapter.getId())
+                        .createdAt(chapter.getCreatedAt())
+                        .content(chapter.getContent()).build())
                 .collect(Collectors.toList());
     }
 
