@@ -16,10 +16,6 @@ public class ChapterController {
 
     private final ChapterService chapterService;
 
-    /*@PostMapping
-    public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
-        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));
-    }*/
     @PostMapping
     public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
         return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));

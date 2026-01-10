@@ -41,4 +41,8 @@ public class Book extends BaseEntity {
         this.hashtags.add(hashtag);
         hashtag.setBook(this);
     }
+
+    public void summaryBook (String summary){
+        this.bookSummary = summary;
+    }
 }

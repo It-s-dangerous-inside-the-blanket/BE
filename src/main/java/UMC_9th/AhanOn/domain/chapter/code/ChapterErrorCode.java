@@ -19,7 +19,7 @@ public enum ChapterErrorCode implements BaseErrorCode {
 
 
     ,
-    GEMINI_ERROR (HttpStatus.INTERNAL_SERVER_ERROR, "SERVER500_1", "제미나이가 정신 못차렸어요..")
+    CHATHGPT_ERROR (HttpStatus.INTERNAL_SERVER_ERROR, "SERVER500_1", "챗지피티가 정신 못차렸어요..")
     ;
 
     private final HttpStatus status;
