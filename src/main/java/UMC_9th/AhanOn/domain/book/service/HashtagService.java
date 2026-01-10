@@ -7,6 +7,7 @@ import UMC_9th.AhanOn.domain.book.entity.dto.HashtagDto;
 import UMC_9th.AhanOn.domain.book.exception.HashtagException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
 import UMC_9th.AhanOn.domain.book.repository.HashtagRepository;
+import UMC_9th.AhanOn.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,11 @@ public class HashtagService {
                 () -> new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG)
         );
 
-        String hashtag = request.getHashtag();
+        return createHashtag(book, request.getHashtag());
+    }
+
+    @Transactional
+    public Hashtag createHashtag(Book book, String hashtag) {
 
         nomerization(hashtag);
 
