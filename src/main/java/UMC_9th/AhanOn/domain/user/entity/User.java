@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.domain.user.Entity;
+package UMC_9th.AhanOn.domain.user.entity;
 
 import UMC_9th.AhanOn.domain.BaseEntity;
 import UMC_9th.AhanOn.domain.book.entity.Book;

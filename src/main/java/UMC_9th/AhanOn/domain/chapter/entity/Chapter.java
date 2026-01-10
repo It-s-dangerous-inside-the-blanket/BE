@@ -1,7 +1,7 @@
 package UMC_9th.AhanOn.domain.chapter.entity;
 
 import UMC_9th.AhanOn.domain.BaseEntity;
-import UMC_9th.AhanOn.domain.DailyComment.entity.DailyComment;
+import UMC_9th.AhanOn.domain.dailyComment.entity.DailyComment;
 import UMC_9th.AhanOn.domain.book.entity.Book;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

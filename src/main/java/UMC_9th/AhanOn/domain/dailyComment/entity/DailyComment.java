@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.domain.DailyComment.entity;
+package UMC_9th.AhanOn.domain.dailyComment.entity;
 
 
 import UMC_9th.AhanOn.domain.BaseEntity;
