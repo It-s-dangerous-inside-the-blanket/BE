@@ -61,6 +61,16 @@ public class BookController {
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, bookSummary);
     }
 
+    @Operation(
+            summary = "책 서론 조회",
+            description = "introductino 정보 전환"
+    )
+    @GetMapping("/introduction/{bookId}")
+    public ApiResponse<BookDto.ResponseSummary> getBookIntro(@CurrentUser Long userId, @PathVariable Long bookId) {
+        BookDto.ResponseSummary bookSummary = bookService.getBookIntroduction(bookId, userId);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, bookSummary);
+    }
+
     @Operation(summary = "책 상세 조회", description = "책의 상세 정보를 조회합니다.")
     @GetMapping("/{bookId}")
     public ApiResponse<BookDto.detailResponse> getBookDetail(

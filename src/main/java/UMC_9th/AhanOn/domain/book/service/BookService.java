@@ -106,6 +106,25 @@ public class BookService {
 
     }
 
+    public BookDto.ResponseSummary getBookIntroduction(Long bookId, Long userId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
+
+        if (!book.isEnd()) throw new BookException(BookErrorCode.NOT_ENDDED_BOOK);
+
+        if (!Objects.equals(book.getUser().getId(), userId)) {
+            throw new BookException(BookErrorCode.NOT_OWNER_OF_BOOK);
+        }
+
+        String bookSummary = book.getBookSummary();
+        BookDto.ResponseSummary build = BookDto.ResponseSummary.builder()
+                .title(book.getTitle())
+                .bookSummary(book.getIntroduction())
+                .createdAt(book.getCreatedAt())
+                .build();
+        return build;
+
+    }
+
     // 책 상세 조회
     @Transactional
     public BookDto.detailResponse getBookDetail(Long bookId) {
