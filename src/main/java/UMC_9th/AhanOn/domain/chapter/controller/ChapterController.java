@@ -44,6 +44,12 @@ public class ChapterController {
         return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, ChapterRespDTO.CreateChapterDTO.builder().id(chapterService.createChapter(dto)).build());
     }
 
+    @PostMapping("/{book_id}/calender")
+    @Operation(summary = "달력 별 챕터 조회", description = "bookID를 기반으로 책을 찾은 후, 요청으로 주신 날짜를 기반으로 챕터를 반환합니다.")
+    public ApiResponse<ChapterRespDTO.ChapterDTO> getChapterByDate (@RequestBody ChapterReqDTO.GetChapterByDateReqDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChapterByDate(dto));
+    }
+
 
     ///  이 밑에 다 안씀!
 //    @DeleteMapping("/{chapter_id}")
