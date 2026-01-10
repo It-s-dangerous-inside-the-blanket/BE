@@ -5,6 +5,7 @@ import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
                 @Index(name = "ux_users_nickname", columnList = "nickname", unique = true)
         }
 )
+@Getter
 public class User extends BaseEntity {
 
     @Id
@@ -30,8 +32,12 @@ public class User extends BaseEntity {
     @Column(name = "nickname", nullable = false, length = 50)
     private String nickname;
 
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
+
+    @Column(name = "completed_book_count", nullable = false)
+    @Builder.Default
+    private int completedBookCount = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Builder.Default

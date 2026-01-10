@@ -1,5 +1,7 @@
 package UMC_9th.AhanOn.domain.book.entity;
 
+import UMC_9th.AhanOn.domain.chapter.entity.Chapter;
+import UMC_9th.AhanOn.domain.dailyComment.entity.DailyComment;
 import UMC_9th.AhanOn.domain.user.entity.User;
 import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Book extends BaseEntity {
 
     @Id
@@ -36,6 +39,9 @@ public class Book extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @Builder.Default
     List<Hashtag> hashtags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chapter> chapterList = new ArrayList<>();
 
     public void addHashtag(Hashtag hashtag) {
         this.hashtags.add(hashtag);

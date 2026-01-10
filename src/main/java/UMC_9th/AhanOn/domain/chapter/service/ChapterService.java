@@ -66,6 +66,15 @@ public class ChapterService {
         return 1L;
     }*/
 
+    public List<ChapterRespDTO.GetChapterDTO> getChaterList (Long bookId){
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+
+        return book.getChapterList().stream()
+                .map(chapter -> ChapterRespDTO.GetChapterDTO.builder()
+                        .createdAt(chapter.getCreatedAt()).content(chapter.getContent()).build())
+                .collect(Collectors.toList());
+    }
+
     public Long createChapter(ChapterReqDTO.CreateChapterDTO dto) {
 
         // AI 연결이 필요

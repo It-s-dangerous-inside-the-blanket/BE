@@ -17,4 +17,13 @@ public class ChapterRespDTO {
         private LocalDateTime createdAt;
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class GetChapterDTO {
+        private LocalDateTime createdAt;
+        private String content;
+    }
+
 }
