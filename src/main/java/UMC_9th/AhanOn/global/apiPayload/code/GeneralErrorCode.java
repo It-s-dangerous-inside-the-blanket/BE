@@ -19,7 +19,17 @@ public enum GeneralErrorCode implements BaseErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, "AUTH403_1", "요청이 거부되었습니다."),
 
     // Validation
-    VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다.")
+    VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다."),
+
+    //BOOK
+    NOT_FOUND_BOOK(HttpStatus.NOT_FOUND, "BOOK4001", "존재하지 않는 책입니다"),
+
+    //Hashtag
+    BAD_REQUEST_HASHTAG_EMPTY(HttpStatus.BAD_REQUEST, "HASHTAG_4001", "빈 해시태그입니다"),
+    BAD_REQUEST_HASHTAG_NULL(HttpStatus.BAD_REQUEST, "HASHTAG_4002", "해시태그 값이 NULL입니다"),
+    NOT_FOUND_HASHTAG(HttpStatus.NOT_FOUND, "HASHTAG4001", "존재하지 않는 해시태그입니다"),
+
+
     ;
 
     private final HttpStatus status;
