@@ -19,7 +19,7 @@ public class Book extends BaseEntity {
     @Column(name = "book_id")
     private Long id;
 
-    private String bookSummery;
+    private String bookSummary;
 
     @Builder.Default
     private boolean isEnd = false;
