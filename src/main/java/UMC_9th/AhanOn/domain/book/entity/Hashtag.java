@@ -1,6 +1,6 @@
 package UMC_9th.AhanOn.domain.book.entity;
 
-import UMC_9th.AhanOn.domain.BaseEntity;
+import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

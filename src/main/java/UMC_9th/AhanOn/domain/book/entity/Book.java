@@ -1,7 +1,7 @@
 package UMC_9th.AhanOn.domain.book.entity;
 
-import UMC_9th.AhanOn.domain.BaseEntity;
 import UMC_9th.AhanOn.domain.user.entity.User;
+import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
