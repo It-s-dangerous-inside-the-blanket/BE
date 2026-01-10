@@ -7,6 +7,7 @@ import UMC_9th.AhanOn.global.apiPayload.ApiResponse;
 import UMC_9th.AhanOn.global.apiPayload.code.GeneralSuccessCode;
 import UMC_9th.AhanOn.validation.annotation.CurrentUser;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +49,15 @@ public class BookController {
     public ApiResponse<List<BookDto.Response>> searchMyBook(@CurrentUser Long userId) {
         List<BookDto.Response> response = bookService.searchBookList(userId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, response);
+    }
+
+    @Operation(
+            summary = "책 전체 요약 조회",
+            description = "complete된 책의 요약 정보를 반환"
+    )
+    @GetMapping("/summaries/{bookId}")
+    public ApiResponse<BookDto.ResponseSummary> getBookSummary(@CurrentUser Long userId, @PathVariable Long bookId) {
+        BookDto.ResponseSummary bookSummary = bookService.getBookSummary(bookId, userId);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, bookSummary);
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
@@ -77,5 +78,24 @@ public class BookService {
         book.getUser().increaseCompletedBookCount();
 
         return BookConverter.toResponse(book);
+    }
+
+    public BookDto.ResponseSummary getBookSummary(Long bookId, Long userId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
+
+        if (!book.isEnd()) throw new BookException(BookErrorCode.NOT_ENDDED_BOOK);
+
+        if (!Objects.equals(book.getUser().getId(), userId)) {
+            throw new BookException(BookErrorCode.NOT_OWNER_OF_BOOK);
+        }
+
+        String bookSummary = book.getBookSummary();
+        BookDto.ResponseSummary build = BookDto.ResponseSummary.builder()
+                .title(book.getTitle())
+                .bookSummary(bookSummary)
+                .createdAt(book.getCreatedAt())
+                .build();
+        return build;
+
     }
 }
