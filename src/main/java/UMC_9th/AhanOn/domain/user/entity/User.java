@@ -35,6 +35,10 @@ public class User extends BaseEntity {
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
+    @Column(name = "completed_book_count", nullable = false)
+    @Builder.Default
+    private int completedBookCount = 0;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Builder.Default
     private List<Book> bookList = new ArrayList<>();
