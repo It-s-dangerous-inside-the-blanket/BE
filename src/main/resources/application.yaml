@@ -1,9 +1,6 @@
 spring:
   application:
     name: AhanOn
-logging:
-  level:
-    org.hibernate.SQL: INFO
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,12 +26,9 @@ logging:
     init:
       mode: never
 
-  batch:
-    jdbc:
-      initialize-schema: always
-    job:
-      enabled: true
-
+logging:
+  level:
+    org.hibernate.SQL: INFO
 
 jwt:
   secret:
