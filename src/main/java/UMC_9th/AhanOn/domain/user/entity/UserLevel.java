@@ -9,6 +9,9 @@ public enum UserLevel {
     SOBOK_STORYTELLER("소복한 이야기꾼", 11, 30),
     BESTSELLER("베스트셀러 작가", 31, 100);
 
+    private static final int SMALL_SOBOK_MAX = 10;
+    private static final int SOBOK_STORYTELLER_MAX = 30;
+
     private final String displayName;
     private final int minCount;
     private final int maxCount;
@@ -20,8 +23,8 @@ public enum UserLevel {
     }
 
     public static UserLevel fromBookCount(int cnt) {
-        if (cnt <= 10) return UserLevel.SMALL_SOBOK;
-        else if (cnt <= 30) return UserLevel.SOBOK_STORYTELLER;
+        if (cnt <= SMALL_SOBOK_MAX) return UserLevel.SMALL_SOBOK;
+        else if (cnt <= SOBOK_STORYTELLER_MAX) return UserLevel.SOBOK_STORYTELLER;
         else  return UserLevel.BESTSELLER;
     }
 }
