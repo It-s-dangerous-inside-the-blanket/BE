@@ -13,6 +13,8 @@ import javax.annotation.processing.Generated;
 @AllArgsConstructor
 public enum ChapterErrorCode implements BaseErrorCode {
 
+    WRONG_CHAPTER(HttpStatus.BAD_REQUEST, "CHAPTER400_1", "알 수 없는 챕터 id 에요"),
+
     VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다.")
     ;
 

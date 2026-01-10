@@ -23,7 +23,8 @@ public class ChapterController {
 
     @DeleteMapping("/{chapter_id}")
     public ApiResponse<Boolean> deleteChapter(@PathVariable("chapter_id") Long chapterId){
-        return null;
+        // hardDelete
+        return ApiResponse.onSuccess(ChapterSuccessCode.DELETE_CHAPTER_SUCCESS, chapterService.deleteChapter(chapterId));
     }
 
     @PatchMapping("/{chapter_id}")
