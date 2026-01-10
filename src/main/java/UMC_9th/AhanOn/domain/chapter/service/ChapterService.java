@@ -38,6 +38,10 @@ public class ChapterService {
     }
 
     public Boolean updateChapter(Long chapterId){
-        return null;
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+
+        chapter.
+
+        return true;
     }
 }

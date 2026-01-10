@@ -44,4 +44,8 @@ public class Chapter extends BaseEntity {
         comments.add(comment);
         comment.setChapter(this);
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

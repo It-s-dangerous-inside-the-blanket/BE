@@ -29,6 +29,7 @@ public class ChapterController {
 
     @PatchMapping("/{chapter_id}")
     public ApiResponse<Boolean> updateChapter(@PathVariable("chapter_id") Long chapterId){
+        chapterService.updateChapter(chapterId);
         return null;
     }
 }
