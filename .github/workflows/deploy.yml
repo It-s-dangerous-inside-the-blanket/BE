@@ -21,8 +21,8 @@ jobs:
       - name: build & push docker image...
         run: |
           chmod +x ./gradlew
-          docker build -t ${{secrets.DOCKER_USERNAME}}/AhanOn .
-          docker push ${{secrets.DOCKER_USERNAME}}/AhanOn
+          docker build -t ${{secrets.DOCKER_USERNAME}}/ahanon .
+          docker push ${{secrets.DOCKER_USERNAME}}/ahanon
 
       - name: deploy to EC2...
         uses: appleboy/ssh-action@master
@@ -31,14 +31,14 @@ jobs:
           username: ${{secrets.EC2_USERNAME}}
           key: ${{secrets.EC2_PRIVATE_KEY}}
           script: |
-            if [ -d "AhanOn" ]; then
+            if [ -d "ahanon" ]; then
               echo "Git repository already exists. Pulling !!"
               cd AhanOn
               sudo git pull origin main
             else
               echo "Git repository not found. Cloning !!!"
               git clone https://github.com/It-s-dangerous-inside-the-blanket/BE.git
-              cd DummyTalk_BE
+              cd ahanon
             fi
             
             sudo docker-compose down || true
