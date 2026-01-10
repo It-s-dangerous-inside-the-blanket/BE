@@ -16,11 +16,17 @@ public class ChapterController {
 
     private final ChapterService chapterService;
 
+    /*@PostMapping
+    public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));
+    }*/
     @PostMapping
     public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
         return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));
     }
 
+
+    ///  이 밑에 다 안씀!
     @DeleteMapping("/{chapter_id}")
     public ApiResponse<Boolean> deleteChapter(@PathVariable("chapter_id") Long chapterId){
         // hardDelete

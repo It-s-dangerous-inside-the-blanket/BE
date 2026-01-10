@@ -42,7 +42,6 @@ public class Chapter extends BaseEntity {
 
     public void addComment(DailyComment comment) {
         comments.add(comment);
-        comment.setChapter(this);
     }
 
     public void updateContent(String content) {

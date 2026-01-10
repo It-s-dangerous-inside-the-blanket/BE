@@ -16,6 +16,10 @@ public enum ChapterErrorCode implements BaseErrorCode {
     WRONG_CHAPTER(HttpStatus.BAD_REQUEST, "CHAPTER400_1", "알 수 없는 챕터 id 에요"),
 
     VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다.")
+
+
+    ,
+    GEMINI_ERROR (HttpStatus.INTERNAL_SERVER_ERROR, "SERVER500_1", "제미나이가 정신 못차렸어요..")
     ;
 
     private final HttpStatus status;

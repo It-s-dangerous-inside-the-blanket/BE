@@ -32,3 +32,11 @@ logging:
 jwt:
   secret:
     key: ${JWT_SECRET_KEY}
+
+gemini:
+  key:
+    ${GEMINI_KEY}
+
+openai:
+  api:
+    key: ${OPENAI_KEY}
