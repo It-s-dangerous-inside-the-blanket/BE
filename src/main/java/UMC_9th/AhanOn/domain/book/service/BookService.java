@@ -7,6 +7,7 @@ import UMC_9th.AhanOn.domain.book.entity.dto.BookConverter;
 import UMC_9th.AhanOn.domain.book.entity.dto.BookDto;
 import UMC_9th.AhanOn.domain.book.exception.BookException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
+import UMC_9th.AhanOn.domain.chapter.service.ChapterService;
 import UMC_9th.AhanOn.domain.user.entity.User;
 import UMC_9th.AhanOn.domain.user.repository.UserRepository;
 import UMC_9th.AhanOn.global.apiPayload.code.GeneralErrorCode;
@@ -26,6 +27,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final HashtagService hashtagService;
+    private final ChapterService chapterService;
 
     public BookDto.Response createBook(BookDto.CreateRequest request, Long userId) {
         Book book = Book.builder()
@@ -67,6 +69,13 @@ public class BookService {
     public BookDto.Response updateCompleteBook(Long bookId, boolean complete) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
         book.updateIsEnd(complete);
+
+        //LLM이 요약 할 수 있도록 메서드 호출
+        chapterService.completeBook(bookId);
+
+        //User에 완료된 책 수 증가시키기
+        book.getUser().increaseCompletedBookCount();
+
         return BookConverter.toResponse(book);
     }
 }
