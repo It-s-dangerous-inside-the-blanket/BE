@@ -7,11 +7,10 @@ services:
     container_name: AhanOn_Container
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       - DB_HOST=mysql-db
-      - DB_NAME=${DB_NAME}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
       - REDIS_HOST=redis-cache
       - REDIS_PORT=6379
     depends_on:
