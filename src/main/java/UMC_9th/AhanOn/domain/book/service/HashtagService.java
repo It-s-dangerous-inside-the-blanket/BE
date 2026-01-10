@@ -1,10 +1,12 @@
 package UMC_9th.AhanOn.domain.book.service;
 
+import UMC_9th.AhanOn.domain.book.code.BookErrorCode;
 import UMC_9th.AhanOn.domain.book.code.HashErrorCode;
 import UMC_9th.AhanOn.domain.book.entity.Book;
 import UMC_9th.AhanOn.domain.book.entity.Hashtag;
 import UMC_9th.AhanOn.domain.book.entity.dto.HashtagConverter;
 import UMC_9th.AhanOn.domain.book.entity.dto.HashtagDto;
+import UMC_9th.AhanOn.domain.book.exception.BookException;
 import UMC_9th.AhanOn.domain.book.exception.HashtagException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
 import UMC_9th.AhanOn.domain.book.repository.HashtagRepository;
@@ -27,7 +29,7 @@ public class HashtagService {
     public HashtagDto.HashtagResponse createHashtag(HashtagDto.Request request) {
 
         Book book = bookRepository.findById(request.getBookId()).orElseThrow(
-                () -> new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG)
+                () -> new BookException(BookErrorCode.NOT_FOUND_BOOK)
         );
 
         HashtagDto.HashtagResponse hashtag = createHashtag(book, request.getHashtag());
@@ -40,18 +42,17 @@ public class HashtagService {
 
         String normalizationTag = normalization(hashtag);
 
-        boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), normalizationTag);
-        if (existsByBookIdAndHashtag) {
-            Hashtag hashtag1 = hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
-            return HashtagConverter.toResponse(hashtag1);
-        }
+        return hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag)
+                .map(HashtagConverter::toResponse)
+                .orElseGet(() -> {
+                    Hashtag entity = Hashtag.builder()
+                            .hashtag(normalizationTag)
+                            .book(book)
+                            .build();
 
-        Hashtag build = Hashtag.builder()
-                .hashtag(normalizationTag)
-                .book(book)
-                .build();
-
-        return HashtagConverter.toResponse(build);
+                    Hashtag saved = hashtagRepository.save(entity);
+                    return HashtagConverter.toResponse(saved);
+                });
     }
 
     @Transactional

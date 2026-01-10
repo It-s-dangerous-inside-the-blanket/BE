@@ -30,29 +30,32 @@ public class BookService {
     private final UserRepository userRepository;
     private final HashtagService hashtagService;
 
+    @Transactional
     public BookDto.Response createBook(BookDto.CreateRequest request, Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new GeneralException(GeneralErrorCode.BAD_REQUEST));
+
         Book book = Book.builder()
                 .title(request.getTitle())
                 .existComment(request.isExistComment())
                 .build();
 
+        user.addBook(book);
+
         Book savedBook = bookRepository.save(book);
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new GeneralException(GeneralErrorCode.BAD_REQUEST));
-        user.addBook(savedBook);
-
         List<String> tags = request.getHashtags();
-
-        //해시태그가 있는 경우에만 실행
         if (tags != null && !tags.isEmpty()) {
-            for (String hashtag : tags) {
-                Hashtag ht = hashtagService.createHashtagOri(savedBook, hashtag);
-                book.addHashtag(ht);
+            for (String tag : tags) {
+                Hashtag ht = hashtagService.createHashtagOri(savedBook, tag);
+                savedBook.addHashtag(ht);
             }
         }
 
-        return BookConverter.toResponse(book);
+        return BookConverter.toResponse(savedBook);
     }
+
 
     public List<BookDto.Response> searchBookList(Long userId) {
         List<Book> books = bookRepository.findAllByUserId(userId);
