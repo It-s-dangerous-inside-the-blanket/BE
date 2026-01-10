@@ -37,10 +37,12 @@ public class BookService {
                 .existComment(request.isExistComment())
                 .build();
 
-        Book savedBook = bookRepository.save(book);
+
 
         User user = userRepository.findById(userId).orElseThrow(() -> new GeneralException(GeneralErrorCode.BAD_REQUEST));
-        user.addBook(savedBook);
+        user.addBook(book);
+
+        Book savedBook = bookRepository.save(book);
 
         List<String> tags = request.getHashtags();
 
