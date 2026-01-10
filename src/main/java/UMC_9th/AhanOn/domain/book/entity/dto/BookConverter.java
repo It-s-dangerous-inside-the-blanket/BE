@@ -8,6 +8,7 @@ public class BookConverter {
     public static BookDto.Response toResponse(Book book) {
         return BookDto.Response.builder()
                 .title(book.getTitle())
+                .id(book.getId())
                 .bookSummary(book.getBookSummary())
                 .isEnd(book.isEnd())
                 .existComment(book.isExistComment())

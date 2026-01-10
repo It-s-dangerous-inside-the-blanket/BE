@@ -40,8 +40,6 @@ public class BookService {
                 .existComment(request.isExistComment())
                 .build();
 
-
-
         User user = userRepository.findById(userId).orElseThrow(() -> new GeneralException(GeneralErrorCode.BAD_REQUEST));
         user.addBook(book);
 
@@ -99,6 +97,7 @@ public class BookService {
         String bookSummary = book.getBookSummary();
         BookDto.ResponseSummary build = BookDto.ResponseSummary.builder()
                 .title(book.getTitle())
+                .id(bookId)
                 .bookSummary(bookSummary)
                 .createdAt(book.getCreatedAt())
                 .build();
@@ -118,6 +117,7 @@ public class BookService {
         String bookSummary = book.getBookSummary();
         BookDto.ResponseSummary build = BookDto.ResponseSummary.builder()
                 .title(book.getTitle())
+                .id(bookId)
                 .bookSummary(book.getIntroduction())
                 .createdAt(book.getCreatedAt())
                 .build();

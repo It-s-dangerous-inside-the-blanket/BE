@@ -36,6 +36,7 @@ public class BookDto {
     @Builder
     @NoArgsConstructor
     public static class Response {
+        private Long id;
         private String title;
         private String bookSummary;
         private boolean isEnd;
@@ -48,6 +49,7 @@ public class BookDto {
     @Builder
     @NoArgsConstructor
     public static class ResponseSummary {
+        private Long id;
         private String title;
         private String bookSummary;
         private LocalDateTime createdAt;
@@ -58,6 +60,7 @@ public class BookDto {
     @Builder
     @NoArgsConstructor
     public static class detailResponse {
+        private Long id;
         private Long bookId;
         private String title;
         private List<String> tags;
