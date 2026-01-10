@@ -7,14 +7,12 @@ import jakarta.persistence.*;
 import lombok.Setter;
 
 @Entity
-@Table(name = "daily_comments")
 public class DailyComment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // FK: chapter_id
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "chapter_id", nullable = false)
     @Setter
