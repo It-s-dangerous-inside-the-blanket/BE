@@ -23,7 +23,7 @@ public class HashtagService {
     private final BookRepository bookRepository;
 
     @Transactional
-    public Hashtag createHashtag(HashtagDto.CreateRequest request) {
+    public Hashtag createHashtag(HashtagDto.Request request) {
 
         Book book = bookRepository.findById(request.getBookId()).orElseThrow(
                 () -> new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG)
@@ -43,10 +43,20 @@ public class HashtagService {
     }
 
     @Transactional
-    public void deleteHashtag(Book book, String hashtag) {
+    public void deleteHashtag(HashtagDto.Request request) {
+
+        Book book = bookRepository.findById(request.getBookId()).orElseThrow(
+                () -> new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG)
+        );
+
+        String hashtag = request.getHashtag();
+
         Optional<Hashtag> byBookIdAndHashtag = hashtagRepository.findByBookIdAndHashtag(book.getId(), hashtag);
-        byBookIdAndHashtag.ifPresent(hashtagRepository::delete);
-        return;
+        if (byBookIdAndHashtag.isPresent()) {
+            hashtagRepository.delete(byBookIdAndHashtag.get());
+        } else {
+            throw new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG);
+        }
     }
 
     public List<Hashtag> findAllByBook(Book book) {

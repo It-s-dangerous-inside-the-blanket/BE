@@ -13,7 +13,7 @@ public class HashtagDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateRequest {
+    public static class Request {
         private Long bookId;
         private String hashtag;
     }
