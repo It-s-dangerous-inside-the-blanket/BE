@@ -35,6 +35,7 @@ public class Book extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String introduction;
 
+    @Column(columnDefinition = "TEXT")
     private String bookSummary;
 
     @Builder.Default
