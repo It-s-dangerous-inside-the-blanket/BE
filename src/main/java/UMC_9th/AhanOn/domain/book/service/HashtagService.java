@@ -2,10 +2,8 @@ package UMC_9th.AhanOn.domain.book.service;
 
 import UMC_9th.AhanOn.domain.book.entity.Book;
 import UMC_9th.AhanOn.domain.book.entity.Hashtag;
-import UMC_9th.AhanOn.domain.book.entity.dto.HashtagDto;
 import UMC_9th.AhanOn.domain.book.repository.HashtagRepository;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.providers.HateoasHalProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +20,7 @@ public class HashtagService {
     @Transactional
     public Hashtag createHashtag(Book book, String hashtag) {
         boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), hashtag);
-        if (existsByBookIdAndHashtag) return ;
+        if (existsByBookIdAndHashtag) return null;
 
         return Hashtag.builder()
                 .hashtag(hashtag)
