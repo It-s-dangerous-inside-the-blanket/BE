@@ -4,9 +4,13 @@ package UMC_9th.AhanOn.domain.dailyComment.entity;
 import UMC_9th.AhanOn.domain.chapter.entity.Chapter;
 import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Builder
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DailyComment extends BaseEntity {
 
     @Id

@@ -30,5 +30,10 @@ logging:
     org.hibernate.SQL: INFO
 
 jwt:
-  secret:
-    key: ${JWT_SECRET_KEY}
+  secret: ${JWT_SECRET_KEY}
+  expiration: 86400000
+
+
+openai:
+  api:
+    key: ${OPENAI_KEY}

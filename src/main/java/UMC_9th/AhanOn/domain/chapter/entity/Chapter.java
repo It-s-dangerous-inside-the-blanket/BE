@@ -4,22 +4,20 @@ import UMC_9th.AhanOn.domain.dailyComment.entity.DailyComment;
 import UMC_9th.AhanOn.domain.book.entity.Book;
 import UMC_9th.AhanOn.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
         name = "chapter",
         indexes = {
-                @Index(name = "ix_chapter_book", columnList = "book")
+                @Index(name = "ix_chapter_book", columnList = "book_id")
         }
 )
 public class Chapter extends BaseEntity {
@@ -44,6 +42,9 @@ public class Chapter extends BaseEntity {
 
     public void addComment(DailyComment comment) {
         comments.add(comment);
-        comment.setChapter(this);
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
     }
 }

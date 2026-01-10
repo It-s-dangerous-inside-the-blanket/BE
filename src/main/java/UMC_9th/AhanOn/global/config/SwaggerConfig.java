@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.global.swagger;
+package UMC_9th.AhanOn.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
