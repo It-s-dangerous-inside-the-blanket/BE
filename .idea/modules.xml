@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AhanOn.iml" filepath="$PROJECT_DIR$/.idea/AhanOn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AhanOn.iml" filepath="$PROJECT_DIR$/.idea/modules/AhanOn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AhanOn.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AhanOn.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AhanOn.test.iml" filepath="$PROJECT_DIR$/.idea/modules/AhanOn.test.iml" />
     </modules>
   </component>
 </project>
