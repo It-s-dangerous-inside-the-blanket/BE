@@ -1,15 +1,12 @@
 package UMC_9th.AhanOn.domain.book.controller;
 
-import UMC_9th.AhanOn.domain.book.entity.Book;
 import UMC_9th.AhanOn.domain.book.entity.dto.BookDto;
 import UMC_9th.AhanOn.domain.book.service.BookService;
 import UMC_9th.AhanOn.global.apiPayload.ApiResponse;
 import UMC_9th.AhanOn.global.apiPayload.code.GeneralSuccessCode;
-import UMC_9th.AhanOn.validation.annotation.CurrentUser;
+import UMC_9th.AhanOn.global.validation.annotation.CurrentUser;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

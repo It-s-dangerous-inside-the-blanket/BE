@@ -1,6 +1,6 @@
-package UMC_9th.AhanOn.validation.resolver;
+package UMC_9th.AhanOn.global.validation.resolver;
 
-import UMC_9th.AhanOn.validation.annotation.CurrentUser;
+import UMC_9th.AhanOn.global.validation.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;

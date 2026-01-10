@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.validation.annotation;
+package UMC_9th.AhanOn.global.validation.annotation;
 
 import io.swagger.v3.oas.annotations.Parameter;
 

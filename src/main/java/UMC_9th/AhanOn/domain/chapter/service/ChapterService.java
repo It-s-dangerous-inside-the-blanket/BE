@@ -72,7 +72,7 @@ public class ChapterService {
     }*/
 
     public List<ChapterRespDTO.GetChapterDTO> getChaterList (Long bookId){
-        Book book = bookRepository.findById(bookId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
 
         return book.getChapterList().stream()
                 .map(chapter -> ChapterRespDTO.GetChapterDTO.builder()
@@ -83,7 +83,7 @@ public class ChapterService {
     }
 
     public ChapterRespDTO.GetChapterInfoDTO getChapter (Long chapterId){
-        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
         return ChapterRespDTO.GetChapterInfoDTO.builder()
                 .id(chapterId)
                 .createdAt(chapter.getCreatedAt().toLocalDate().atStartOfDay())

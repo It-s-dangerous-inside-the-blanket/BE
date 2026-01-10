@@ -7,7 +7,7 @@ import UMC_9th.AhanOn.domain.user.entity.User;
 import UMC_9th.AhanOn.domain.user.entity.UserLevel;
 import UMC_9th.AhanOn.domain.user.exception.UserException;
 import UMC_9th.AhanOn.domain.user.repository.UserRepository;
-import UMC_9th.AhanOn.validation.jwt.JwtUtil;
+import UMC_9th.AhanOn.global.validation.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

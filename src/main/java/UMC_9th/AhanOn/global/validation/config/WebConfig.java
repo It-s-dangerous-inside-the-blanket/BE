@@ -1,6 +1,6 @@
-package UMC_9th.AhanOn.validation.config;
+package UMC_9th.AhanOn.global.validation.config;
 
-import UMC_9th.AhanOn.validation.resolver.CurrentUserArgumentResolver;
+import UMC_9th.AhanOn.global.validation.resolver.CurrentUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
