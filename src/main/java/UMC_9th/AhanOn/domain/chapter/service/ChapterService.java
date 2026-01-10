@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,17 +77,16 @@ public class ChapterService {
         return book.getChapterList().stream()
                 .map(chapter -> ChapterRespDTO.GetChapterDTO.builder()
                         .id(chapter.getId())
-                        .createdAt(chapter.getCreatedAt())
+                        .createdAt(chapter.getCreatedAt().toLocalDate().atStartOfDay())
                         .content(chapter.getContent()).build())
                 .collect(Collectors.toList());
     }
 
     public ChapterRespDTO.GetChapterInfoDTO getChapter (Long chapterId){
         Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
-
         return ChapterRespDTO.GetChapterInfoDTO.builder()
                 .id(chapterId)
-                .createdAt(chapter.getCreatedAt())
+                .createdAt(chapter.getCreatedAt().toLocalDate().atStartOfDay())
                 .content(chapter.getContent())
                 .comment(chapter.getComments().get(0).getComment())
                 .build();
