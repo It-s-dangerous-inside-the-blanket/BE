@@ -3,6 +3,7 @@ package UMC_9th.AhanOn.domain.book.service;
 import UMC_9th.AhanOn.domain.book.code.HashErrorCode;
 import UMC_9th.AhanOn.domain.book.entity.Book;
 import UMC_9th.AhanOn.domain.book.entity.Hashtag;
+import UMC_9th.AhanOn.domain.book.entity.dto.HashtagConverter;
 import UMC_9th.AhanOn.domain.book.entity.dto.HashtagDto;
 import UMC_9th.AhanOn.domain.book.exception.HashtagException;
 import UMC_9th.AhanOn.domain.book.repository.BookRepository;
@@ -23,22 +24,45 @@ public class HashtagService {
     private final BookRepository bookRepository;
 
     @Transactional
-    public Hashtag createHashtag(HashtagDto.Request request) {
+    public HashtagDto.HashtagResponse createHashtag(HashtagDto.Request request) {
 
         Book book = bookRepository.findById(request.getBookId()).orElseThrow(
                 () -> new HashtagException(HashErrorCode.NOT_FOUND_HASHTAG)
         );
 
-        return createHashtag(book, request.getHashtag());
+        HashtagDto.HashtagResponse hashtag = createHashtag(book, request.getHashtag());
+
+        return hashtag;
     }
 
     @Transactional
-    public Hashtag createHashtag(Book book, String hashtag) {
+    public HashtagDto.HashtagResponse createHashtag(Book book, String hashtag) {
 
         String normalizationTag = normalization(hashtag);
 
         boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), normalizationTag);
-        if (existsByBookIdAndHashtag) return hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
+        if (existsByBookIdAndHashtag) {
+            Hashtag hashtag1 = hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
+            return HashtagConverter.toResponse(hashtag1);
+        }
+
+        Hashtag build = Hashtag.builder()
+                .hashtag(normalizationTag)
+                .book(book)
+                .build();
+
+        return HashtagConverter.toResponse(build);
+    }
+
+    @Transactional
+    public Hashtag createHashtagOri(Book book, String hashtag) {
+
+        String normalizationTag = normalization(hashtag);
+
+        boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), normalizationTag);
+        if (existsByBookIdAndHashtag) {
+            return hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
+        }
 
         return Hashtag.builder()
                 .hashtag(normalizationTag)

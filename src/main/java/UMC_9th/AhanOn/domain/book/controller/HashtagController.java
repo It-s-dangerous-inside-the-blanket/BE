@@ -21,8 +21,8 @@ public class HashtagController {
             description = "책에 새로운 해시태그를 생성합니다."
     )
     @PostMapping("/create")
-    public ApiResponse<Hashtag> createHashtag(@RequestBody HashtagDto.Request request) {
-        Hashtag hashtag = hashtagService.createHashtag(request);
+    public ApiResponse<HashtagDto.HashtagResponse> createHashtag(@RequestBody HashtagDto.Request request) {
+        HashtagDto.HashtagResponse hashtag = hashtagService.createHashtag(request);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, hashtag);
     }
 

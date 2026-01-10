@@ -43,7 +43,7 @@ public class BookService {
         //해시태그가 있는 경우에만 실행
         if (tags != null && !tags.isEmpty()) {
             for (String hashtag : tags) {
-                Hashtag ht = hashtagService.createHashtag(savedBook, hashtag);
+                Hashtag ht = hashtagService.createHashtagOri(savedBook, hashtag);
                 book.addHashtag(ht);
             }
         }

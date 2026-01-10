@@ -1,9 +1,6 @@
 package UMC_9th.AhanOn.domain.book.entity.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -20,9 +17,12 @@ public class HashtagDto {
 
     @Getter
     @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
     public static class HashtagResponse {
         private Long id;
         private Long bookId;
+        private String bookTitle;
         private String hashtag;
     }
 
