@@ -36,8 +36,8 @@ public class ChapterController {
 
     @PostMapping
     @Operation(summary = "챕터 생성", description = "bookID를 기반으로 책을 찾은 후, title과 content로 챕터를 만든 후 저장합니다. 동시에 ChatGPT 연결로 해당 챕터에 대한 일일 코멘트를 연결합니다.")
-    public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
-        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));
+    public ApiResponse<ChapterRespDTO.CreateChapterDTO> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, ChapterRespDTO.CreateChapterDTO.builder().id(chapterService.createChapter(dto)).build());
     }
 
 
