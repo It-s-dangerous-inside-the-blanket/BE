@@ -47,4 +47,8 @@ public class User extends BaseEntity {
         bookList.add(book);
         book.setUser(this);
     }
+
+    public void increaseCompletedBookCount() {
+        completedBookCount = this.completedBookCount + 1;
+    }
 }
