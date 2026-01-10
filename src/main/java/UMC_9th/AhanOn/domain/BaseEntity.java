@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.Domain;
+package UMC_9th.AhanOn.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @MappedSuperclass
-@SuperBuilder
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseEntity {
