@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   spring-app:
-    build: .
+#    build: .
     container_name: AhanOn_Container
     ports:
       - "8080:8080"
