@@ -80,6 +80,17 @@ public class ChapterService {
                 .collect(Collectors.toList());
     }
 
+    public ChapterRespDTO.GetChapterInfoDTO getChapter (Long chapterId){
+        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+
+        return ChapterRespDTO.GetChapterInfoDTO.builder()
+                .id(chapterId)
+                .createdAt(chapter.getCreatedAt())
+                .content(chapter.getContent())
+                .comment(chapter.getComments().get(0).getComment())
+                .build();
+    }
+
     public Long createChapter(ChapterReqDTO.CreateChapterDTO dto) {
 
         Book book = bookRepository.findById(dto.getBookId()).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
