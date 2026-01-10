@@ -31,11 +31,11 @@ public class Book extends BaseEntity {
     @NotBlank
     private String title;
 
-    @Column(length = 1000)
-    private String bookSummary;
 
     @Column(columnDefinition = "TEXT")
     private String introduction;
+
+    private String bookSummary;
 
     @Builder.Default
     private boolean isEnd = false;
