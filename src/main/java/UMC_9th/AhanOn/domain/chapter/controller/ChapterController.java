@@ -7,8 +7,11 @@ import UMC_9th.AhanOn.domain.chapter.service.ChapterService;
 import UMC_9th.AhanOn.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,26 +21,33 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "챕터 API", description = "책 내 챕터 API (챕터 생성)")
+@Validated
 public class ChapterController {
 
     private final ChapterService chapterService;
 
     @GetMapping("/{book_id}/list")
     @Operation(summary = "챕터 리스트 조회", description = "bookID를 기반으로 책을 찾은 후, 생성일 created_at 과 실 내용 content를 리스트로 반환합니다.")
-    public ApiResponse<List<ChapterRespDTO.GetChapterDTO>> getChapterList(@PathVariable("book_id") Long bookId){
+    public ApiResponse<List<ChapterRespDTO.GetChapterDTO>> getChapterList(@PathVariable("book_id") @NonNull Long bookId){
         return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChaterList(bookId));
     }
 
      @GetMapping("/{chapter_id}")
      @Operation(summary = "챕터 단일 조회", description = " 생성일 created_at 과 실 내용 content, AI 한미디 comment를 반환합니다.")
-     public ApiResponse<ChapterRespDTO.GetChapterInfoDTO> getChapter (@PathVariable ("chapter_id") Long chapterId){
+     public ApiResponse<ChapterRespDTO.GetChapterInfoDTO> getChapter (@PathVariable ("chapter_id") @NonNull Long chapterId){
         return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChapter(chapterId));
      }
 
     @PostMapping
     @Operation(summary = "챕터 생성", description = "bookID를 기반으로 책을 찾은 후, title과 content로 챕터를 만든 후 저장합니다. 동시에 ChatGPT 연결로 해당 챕터에 대한 일일 코멘트를 연결합니다.")
-    public ApiResponse<Long> createChapter (@RequestBody ChapterReqDTO.CreateChapterDTO dto){
-        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, chapterService.createChapter(dto));
+    public ApiResponse<ChapterRespDTO.CreateChapterDTO> createChapter (@RequestBody @Valid ChapterReqDTO.CreateChapterDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.CREATE_CHAPTER_SUCCESS, ChapterRespDTO.CreateChapterDTO.builder().id(chapterService.createChapter(dto)).build());
+    }
+
+    @PostMapping("/{book_id}/calender")
+    @Operation(summary = "달력 별 챕터 조회", description = "bookID를 기반으로 책을 찾은 후, 요청으로 주신 날짜를 기반으로 챕터를 반환합니다.")
+    public ApiResponse<ChapterRespDTO.ChapterDTO> getChapterByDate (@RequestBody ChapterReqDTO.GetChapterByDateReqDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.GET_CHAPTER_SUCCESS, chapterService.getChapterByDate(dto));
     }
 
 

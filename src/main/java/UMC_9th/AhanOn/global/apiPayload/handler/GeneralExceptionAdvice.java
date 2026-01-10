@@ -6,10 +6,13 @@ import UMC_9th.AhanOn.global.apiPayload.code.GeneralErrorCode;
 import UMC_9th.AhanOn.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.fasterxml.jackson.core.JsonParseException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +43,20 @@ public class GeneralExceptionAdvice {
         GeneralErrorCode code = GeneralErrorCode.VALID_FAIL;
         return ResponseEntity.status(code.getStatus())
                 .body(ApiResponse.onFailure(code, errors));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponse<?>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        String message = "잘못된 JSON 형식입니다.";
+        if (e.getCause() instanceof JsonParseException) {
+            message = "JSON 형식이 올바르지 않습니다.";
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.onFailure(
+                        GeneralErrorCode.BAD_REQUEST,
+                        message
+                ));
     }
 
     // @Validated 검증 실패 (RequestParam, PathVariable)

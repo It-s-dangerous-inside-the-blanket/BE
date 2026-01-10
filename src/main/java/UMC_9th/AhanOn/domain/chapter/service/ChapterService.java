@@ -26,9 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,6 +92,14 @@ public class ChapterService {
                 .content(chapter.getContent())
                 .comment(chapter.getComments().get(0).getComment())
                 .build();
+    }
+
+    public ChapterRespDTO.ChapterDTO getChapterByDate (ChapterReqDTO.GetChapterByDateReqDTO dto){
+        Book book = bookRepository.findById(dto.getId()).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
+
+        List<Chapter> chapters = chapterRepository.findByBookAndDate(book, dto.getDate());
+
+        return ChapterRespDTO.ChapterDTO.builder().content(chapters.get(0).getContent()).createdAt(chapters.get(0).getCreatedAt().toLocalDate().atStartOfDay()).build();
     }
 
     public Long createChapter(ChapterReqDTO.CreateChapterDTO dto) {

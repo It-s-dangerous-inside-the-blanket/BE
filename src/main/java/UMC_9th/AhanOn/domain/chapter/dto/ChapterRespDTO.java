@@ -21,6 +21,14 @@ public class ChapterRespDTO {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class CreateChapterDTO {
+        private Long id;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class GetChapterDTO {
         private Long id;
         private LocalDateTime createdAt;

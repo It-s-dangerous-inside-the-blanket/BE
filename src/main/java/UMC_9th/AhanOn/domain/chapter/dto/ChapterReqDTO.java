@@ -1,9 +1,10 @@
 package UMC_9th.AhanOn.domain.chapter.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ChapterReqDTO {
 
@@ -11,9 +12,24 @@ public class ChapterReqDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class GetChapterByDateReqDTO {
+        private Long id;
+        private LocalDate date;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class CreateChapterDTO{
+
+        @NonNull
         private Long bookId;
+
+        @NonNull
         private String title;
+
+        @NonNull
         private String content;
     }
 
@@ -22,7 +38,11 @@ public class ChapterReqDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UpdateChapterDTO{
+
+        @NonNull
         private Long chapterId;
+
+        @NonNull
         private String content;
     }
 }
