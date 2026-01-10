@@ -27,9 +27,8 @@ public class ChapterController {
         return ApiResponse.onSuccess(ChapterSuccessCode.DELETE_CHAPTER_SUCCESS, chapterService.deleteChapter(chapterId));
     }
 
-    @PatchMapping("/{chapter_id}")
-    public ApiResponse<Boolean> updateChapter(@PathVariable("chapter_id") Long chapterId){
-        chapterService.updateChapter(chapterId);
-        return null;
+    @PatchMapping
+    public ApiResponse<Boolean> updateChapter(@RequestBody ChapterReqDTO.UpdateChapterDTO dto){
+        return ApiResponse.onSuccess(ChapterSuccessCode.DELETE_CHAPTER_SUCCESS, chapterService.updateChapter(dto));
     }
 }

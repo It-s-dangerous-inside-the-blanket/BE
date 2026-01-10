@@ -24,7 +24,6 @@ public class Chapter extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chapter_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

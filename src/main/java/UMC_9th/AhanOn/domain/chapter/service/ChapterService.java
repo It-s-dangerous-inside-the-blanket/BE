@@ -37,11 +37,9 @@ public class ChapterService {
         return true;
     }
 
-    public Boolean updateChapter(Long chapterId){
-        Chapter chapter = chapterRepository.findById(chapterId).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
-
-        chapter.
-
+    public Boolean updateChapter(ChapterReqDTO.UpdateChapterDTO dto){
+        Chapter chapter = chapterRepository.findById(dto.getChapterId()).orElseThrow(() -> new ChapterException(ChapterErrorCode.WRONG_CHAPTER));
+        chapter.updateContent(dto.getContent());
         return true;
     }
 }

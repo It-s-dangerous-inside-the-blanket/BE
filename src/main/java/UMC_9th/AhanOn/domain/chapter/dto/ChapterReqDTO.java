@@ -16,4 +16,13 @@ public class ChapterReqDTO {
         private String title;
         private String content;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateChapterDTO{
+        private Long chapterId;
+        private String content;
+    }
 }
