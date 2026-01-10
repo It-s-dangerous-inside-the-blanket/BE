@@ -4,6 +4,7 @@ import UMC_9th.AhanOn.domain.user.code.UserErrorCode;
 import UMC_9th.AhanOn.domain.user.dto.UserRequestDTO;
 import UMC_9th.AhanOn.domain.user.dto.UserResponseDTO;
 import UMC_9th.AhanOn.domain.user.entity.User;
+import UMC_9th.AhanOn.domain.user.entity.UserLevel;
 import UMC_9th.AhanOn.domain.user.exception.UserException;
 import UMC_9th.AhanOn.domain.user.repository.UserRepository;
 import UMC_9th.AhanOn.validation.jwt.JwtUtil;
@@ -11,6 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +82,30 @@ public class UserService {
                 .isDuplicate(isDuplicate)
                 .message(message)
                 .build();
+    }
+
+    @Transactional
+    public UserResponseDTO.MyPageDTO getMyPage(String nickname) {
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+
+
+        // user -> bookList -> chapterList
+        // user가 작성한 모든 책에 대한 챕터의 개수 어떻게 조회?
+        int writeChapterCnt = user.getBookList().stream()
+                .mapToInt(book -> book.getChapterList().size())
+                .sum();
+
+
+        // after join 어떻게 계싼?
+
+        return UserResponseDTO.MyPageDTO.builder()
+                .today(LocalDate.from(LocalDateTime.now()))
+                .afterJoin((int)ChronoUnit.DAYS.between(user.getCreatedAt(), LocalDateTime.now()))
+                .writeChapterCnt(writeChapterCnt)
+                .writeBookCnt(user.getCompletedBookCount())
+                .userLevel(UserLevel.fromBookCount(user.getCompletedBookCount()))
+                .build();
+
     }
 }
