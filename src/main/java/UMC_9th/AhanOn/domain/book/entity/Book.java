@@ -14,6 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Table(
+        name = "book",
+        indexes = {
+                @Index(name = "ix_book_user_id", columnList = "user_id")
+        }
+)
 public class Book extends BaseEntity {
 
     @Id
