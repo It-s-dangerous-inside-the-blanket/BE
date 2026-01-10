@@ -83,7 +83,7 @@ public class BookService {
     public BookDto.ResponseSummary getBookSummary(Long bookId, Long userId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
 
-        if (!book.isEnd()) throw new BookException(BookErrorCode.NOT_ENDDED_BOOK)
+        if (!book.isEnd()) throw new BookException(BookErrorCode.NOT_ENDDED_BOOK);
 
         if (!Objects.equals(book.getUser().getId(), userId)) {
             throw new BookException(BookErrorCode.NOT_OWNER_OF_BOOK);
