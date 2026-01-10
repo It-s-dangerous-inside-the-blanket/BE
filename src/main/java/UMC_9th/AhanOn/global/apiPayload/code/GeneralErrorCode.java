@@ -19,7 +19,8 @@ public enum GeneralErrorCode implements BaseErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, "AUTH403_1", "요청이 거부되었습니다."),
 
     // Validation
-    VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다.")
+    VALID_FAIL(HttpStatus.BAD_REQUEST, "VALID400_1", "검증에 실패했습니다."),
+
     ;
 
     private final HttpStatus status;

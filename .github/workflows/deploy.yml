@@ -60,6 +60,7 @@ jobs:
             echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> .env
             echo "GEMINI_KEY=${{secrets.GEMINI_KEY}}" >> .env
             echo "OPENAI_KEY=${{secrets.OPENAI_KEY}}" >> .env
+            echo "JWT_SECRET_KEY=${{secrets.JWT_SECRET_KEY}}" >> .env
             
             sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
             
