@@ -60,4 +60,14 @@ public class BookController {
         BookDto.ResponseSummary bookSummary = bookService.getBookSummary(bookId, userId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, bookSummary);
     }
+
+    @Operation(summary = "책 상세 조회", description = "책의 상세 정보를 조회합니다.")
+    @GetMapping("/{bookId}")
+    public ApiResponse<BookDto.detailResponse> getBookDetail(
+            @PathVariable Long bookId,
+            @CurrentUser Long userId
+    ) {
+        BookDto.detailResponse response = bookService.getBookDetail(bookId);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, response);
+    }
 }

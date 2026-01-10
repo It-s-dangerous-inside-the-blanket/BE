@@ -42,18 +42,17 @@ public class HashtagService {
 
         String normalizationTag = normalization(hashtag);
 
-        boolean existsByBookIdAndHashtag = hashtagRepository.existsByBookIdAndHashtag(book.getId(), normalizationTag);
-        if (existsByBookIdAndHashtag) {
-            Hashtag hashtag1 = hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag).get();
-            return HashtagConverter.toResponse(hashtag1);
-        }
+        return hashtagRepository.findByBookIdAndHashtag(book.getId(), normalizationTag)
+                .map(HashtagConverter::toResponse)
+                .orElseGet(() -> {
+                    Hashtag entity = Hashtag.builder()
+                            .hashtag(normalizationTag)
+                            .book(book)
+                            .build();
 
-        Hashtag build = Hashtag.builder()
-                .hashtag(normalizationTag)
-                .book(book)
-                .build();
-
-        return HashtagConverter.toResponse(build);
+                    Hashtag saved = hashtagRepository.save(entity);
+                    return HashtagConverter.toResponse(saved);
+                });
     }
 
     @Transactional

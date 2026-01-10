@@ -1,7 +1,6 @@
 package UMC_9th.AhanOn.domain.book.entity.dto;
 
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,5 +51,17 @@ public class BookDto {
         private String title;
         private String bookSummary;
         private LocalDateTime createdAt;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    public static class detailResponse {
+        private Long bookId;
+        private String title;
+        private List<String> tags;
+        private LocalDateTime createdAt;
+        private Long daysSinceCreated;
     }
 }
