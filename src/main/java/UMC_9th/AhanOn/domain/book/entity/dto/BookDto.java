@@ -2,6 +2,7 @@ package UMC_9th.AhanOn.domain.book.entity.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookDto {
@@ -40,5 +41,17 @@ public class BookDto {
         private boolean isEnd;
         private boolean existComment;
         private List<String> hashtags;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    public static class detailResponse {
+        private Long bookId;
+        private String title;
+        private List<String> tags;
+        private LocalDateTime createdAt;
+        private Long daysSinceCreated;
     }
 }

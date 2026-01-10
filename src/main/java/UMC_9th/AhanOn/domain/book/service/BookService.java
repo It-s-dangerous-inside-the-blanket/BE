@@ -15,8 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -68,5 +71,32 @@ public class BookService {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
         book.updateIsEnd(complete);
         return BookConverter.toResponse(book);
+    }
+
+    // 책 상세 조회
+    @Transactional
+    public BookDto.detailResponse getBookDetail(Long bookId) {
+        // 책 조회 (해시태그 fetch join)
+        Book book = bookRepository.findByIdWithHashtags(bookId)
+                .orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
+
+        // 태그 리스트 추출
+        List<String> tags = book.getHashtags().stream()
+                .map(hashtag -> hashtag.getHashtag())
+                .collect(Collectors.toList());
+
+        // 생성 후 지난 일수 계산
+        long daysSinceCreated = ChronoUnit.DAYS.between(
+                book.getCreatedAt().toLocalDate(),
+                LocalDateTime.now().toLocalDate()
+        );
+
+        return BookDto.detailResponse.builder()
+                .bookId(book.getId())
+                .title(book.getTitle())
+                .tags(tags)
+                .createdAt(book.getCreatedAt())
+                .daysSinceCreated(daysSinceCreated)
+                .build();
     }
 }
