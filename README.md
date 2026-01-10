@@ -1,4 +1,5 @@
 # 🌨️ 소복소복 (SobokSobok)
+<img width="3840" height="2160" alt="main_image" src="https://github.com/user-attachments/assets/d824fe8f-98d2-40b0-86fe-05bdf9cc337c" />
 
 > **불안한 기억을 엮어, 나만의 자서전을 집필하는 인생 기록 플랫폼**
 
