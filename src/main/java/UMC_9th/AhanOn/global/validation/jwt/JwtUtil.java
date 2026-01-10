@@ -1,4 +1,4 @@
-package UMC_9th.AhanOn.validation.jwt;
+package UMC_9th.AhanOn.global.validation.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

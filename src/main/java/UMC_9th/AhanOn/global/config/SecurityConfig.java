@@ -1,6 +1,6 @@
 package UMC_9th.AhanOn.global.config;
 
-import UMC_9th.AhanOn.validation.jwt.JwtAuthenticationFilter;
+import UMC_9th.AhanOn.global.validation.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
