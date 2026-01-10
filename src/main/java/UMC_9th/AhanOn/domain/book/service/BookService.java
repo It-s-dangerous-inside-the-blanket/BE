@@ -30,6 +30,7 @@ public class BookService {
     private final HashtagService hashtagService;
     private final ChapterService chapterService;
 
+    @Transactional
     public BookDto.Response createBook(BookDto.CreateRequest request, Long userId) {
         Book book = Book.builder()
                 .title(request.getTitle())
@@ -67,6 +68,7 @@ public class BookService {
         return responses;
     }
 
+    @Transactional
     public BookDto.Response updateCompleteBook(Long bookId, boolean complete) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookException(BookErrorCode.NOT_FOUND_BOOK));
         book.updateIsEnd(complete);
