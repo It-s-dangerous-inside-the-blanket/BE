@@ -43,6 +43,9 @@ public class User extends BaseEntity {
     @Builder.Default
     private List<Book> bookList = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private UserLevel userLevel;
+
     public void addBook(Book book) {
         bookList.add(book);
         book.setUser(this);
@@ -50,5 +53,6 @@ public class User extends BaseEntity {
 
     public void increaseCompletedBookCount() {
         completedBookCount = this.completedBookCount + 1;
+        this.userLevel = UserLevel.fromBookCount(completedBookCount);
     }
 }

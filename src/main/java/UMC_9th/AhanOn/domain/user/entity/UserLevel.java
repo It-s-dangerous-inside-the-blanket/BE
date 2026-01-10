@@ -18,4 +18,10 @@ public enum UserLevel {
         this.minCount = minCount;
         this.maxCount = maxCount;
     }
+
+    public static UserLevel fromBookCount(int cnt) {
+        if (cnt <= 10) return UserLevel.SMALL_SOBOK;
+        else if (cnt <= 30) return UserLevel.SOBOK_STORYTELLER;
+        else  return UserLevel.BESTSELLER;
+    }
 }
