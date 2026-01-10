@@ -70,7 +70,8 @@ public class Book extends BaseEntity {
         if (isEnd != null) this.isEnd = isEnd;
     }
 
-    public void summaryBook (String summary){
+    public void summaryBook (String summary, String intro){
         this.bookSummary = summary;
+        this.introduction = intro;
     }
 }
