@@ -48,16 +48,10 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(auth -> auth
-                        // 스웨거 관련 경로 허용
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/swagger-resources/**"
-                        ).permitAll()
-                        // 인증 불필요 - 회원가입/로그인 관련
+                        // 1. 모든 OPTIONS 요청은 인증 없이 통과시켜야 CORS가 작동합니다.
+                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
-                        // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
